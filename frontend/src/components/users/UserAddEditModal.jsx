@@ -134,21 +134,21 @@ export default function UserAddEditModal({ onClose, onRefresh, editData }) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-3">
       <div className="bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl p-5">
-
         <h3 className="text-xl font-bold text-center mb-4">
           {isEdit ? "Edit User" : "Add User"}
         </h3>
 
         {message.text && (
-          <p className={`text-center mb-3 ${
-            message.type === "error" ? "text-red-500" : "text-green-600"
-          }`}>
+          <p
+            className={`text-center mb-3 ${
+              message.type === "error" ? "text-red-500" : "text-green-600"
+            }`}
+          >
             {message.text}
           </p>
         )}
 
-        <div className="space-y-3">
-
+        <div className="space-y-3 ">
           <input
             name="user_name"
             value={form.user_name}
@@ -214,8 +214,18 @@ export default function UserAddEditModal({ onClose, onRefresh, editData }) {
             />
           )}
 
+          <select
+            name="is_active"
+            value={form.is_active ? "true" : "false"}
+            onChange={handleChange}
+            className="w-full border p-2 rounded"
+          >
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+
           {/* IMAGE */}
-          <label className="flex items-center justify-center border-2 border-dashed rounded-lg p-3 cursor-pointer">
+          <label className="flex items-center justify-center border-1 border-dashed  rounded-lg p-3 cursor-pointer">
             <span className="text-gray-500 text-sm">
               {fileName || "Choose Image"}
             </span>
@@ -227,16 +237,6 @@ export default function UserAddEditModal({ onClose, onRefresh, editData }) {
               className="hidden"
             />
           </label>
-
-          <select
-            name="is_active"
-            value={form.is_active ? "true" : "false"}
-            onChange={handleChange}
-            className="w-full border p-2 rounded"
-          >
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
-          </select>
 
           <div className="flex justify-end gap-2 mt-4">
             <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">
@@ -250,7 +250,6 @@ export default function UserAddEditModal({ onClose, onRefresh, editData }) {
               {isEdit ? "Update" : "Save"}
             </button>
           </div>
-
         </div>
       </div>
     </div>
