@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -25,26 +26,57 @@ class UserController extends Controller
         return response()->json($this->userService->getById($user));
     }
 
+    // ================= CREATE =================
     public function store(UserRequest $request): JsonResponse
     {
-        $user = $this->userService->create($request->validated());
+        $data = $request->all();
+
+        // PASSWORD FIX
+        if (!empty($data['password_hash'])) {
+            $data['password_hash'] = Hash::make($data['password_hash']);
+        }
+
+        // IMAGE UPLOAD
+        if ($request->hasFile('user_photo_url')) {
+            $data['user_photo_url'] = $request->file('user_photo_url')
+                ->store('users', 'public');
+        }
+
+        $user = $this->userService->create($data);
 
         return response()->json([
-            'message' => 'User created successfully.',
-            'data'    => $user,
+            'message' => 'User created successfully',
+            'data' => $user
         ], 201);
     }
 
+    // ================= UPDATE =================
     public function update(UserRequest $request, int $user): JsonResponse
     {
-        $updatedUser = $this->userService->update($user, $request->validated());
+        $data = $request->all();
+
+        // PASSWORD FIX
+        if (!empty($data['password_hash'])) {
+            $data['password_hash'] = Hash::make($data['password_hash']);
+        } else {
+            unset($data['password_hash']);
+        }
+
+        // IMAGE UPLOAD
+        if ($request->hasFile('user_photo_url')) {
+            $data['user_photo_url'] = $request->file('user_photo_url')
+                ->store('users', 'public');
+        }
+
+        $updated = $this->userService->update($user, $data);
 
         return response()->json([
-            'message' => 'User updated successfully.',
-            'data'    => $updatedUser,
+            'message' => 'User updated successfully',
+            'data' => $updated
         ]);
     }
 
+    // ================= DELETE =================
     public function destroy(int $user): JsonResponse
     {
         $this->userService->delete($user);
@@ -54,7 +86,7 @@ class UserController extends Controller
         ]);
     }
 
-    // 🔐 LOGIN FUNCTION (FINAL FIXED)
+    // ================= LOGIN =================
     public function login(Request $request): JsonResponse
     {
         $request->validate([
@@ -62,7 +94,6 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        // IMPORTANT: DB field is user_email
         $user = User::where('user_email', $request->email)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password_hash)) {

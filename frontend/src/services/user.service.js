@@ -5,24 +5,21 @@ class UserService {
     return API.get("/users");
   }
 
-  getById(userId) {
-    return API.get(`/users/${userId}`);
+  getById(id) {
+    return API.get(`/users/${id}`);
   }
 
-  create(userData) {
-    return API.post("/users", userData);
+  create(data) {
+    return API.post("/users", data);
   }
 
-  update(userId, userData) {
-    return API.put(`/users/${userId}`, userData);
+  update(id, data) {
+    data.append("_method", "PUT");   // 🔥 IMPORTANT FIX
+    return API.post(`/users/${id}`, data);
   }
 
-  delete(userId) {
-    return API.delete(`/users/${userId}`);
-  }
-
-  login(credentials) {
-    return API.post("/login", credentials);
+  delete(id) {
+    return API.delete(`/users/${id}`);
   }
 }
 
