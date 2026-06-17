@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -32,21 +31,25 @@ class UserController extends Controller
         $data = $request->all();
 
         // PASSWORD FIX
-        if (!empty($data['password_hash'])) {
+        if (! empty($data['password_hash'])) {
             $data['password_hash'] = Hash::make($data['password_hash']);
         }
 
-        // IMAGE UPLOAD
+        // IMAGE UPLOAD (RENAMED)
         if ($request->hasFile('user_photo_url')) {
-            $data['user_photo_url'] = $request->file('user_photo_url')
-                ->store('users', 'public');
+
+            $file = $request->file('user_photo_url');
+
+            $filename = 'user_' . time() . '.' . $file->getClientOriginalExtension();
+
+            $data['user_photo_url'] = $file->storeAs('users', $filename, 'public');
         }
 
         $user = $this->userService->create($data);
 
         return response()->json([
             'message' => 'User created successfully',
-            'data' => $user
+            'data'    => $user,
         ], 201);
     }
 
@@ -56,23 +59,27 @@ class UserController extends Controller
         $data = $request->all();
 
         // PASSWORD FIX
-        if (!empty($data['password_hash'])) {
+        if (! empty($data['password_hash'])) {
             $data['password_hash'] = Hash::make($data['password_hash']);
         } else {
             unset($data['password_hash']);
         }
 
-        // IMAGE UPLOAD
+        // IMAGE UPLOAD (RENAMED)
         if ($request->hasFile('user_photo_url')) {
-            $data['user_photo_url'] = $request->file('user_photo_url')
-                ->store('users', 'public');
+
+            $file = $request->file('user_photo_url');
+
+            $filename = 'user_' . time() . '.' . $file->getClientOriginalExtension();
+
+            $data['user_photo_url'] = $file->storeAs('users', $filename, 'public');
         }
 
         $updated = $this->userService->update($user, $data);
 
         return response()->json([
             'message' => 'User updated successfully',
-            'data' => $updated
+            'data'    => $updated,
         ]);
     }
 
