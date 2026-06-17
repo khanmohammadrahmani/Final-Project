@@ -38,10 +38,8 @@ export default function UsersList() {
   if (!u?.user_photo_url) return defaultUserImage;
 
   const url = u.user_photo_url;
-
   // external image
   if (url.startsWith("http")) return url;
-
   // local Laravel storage image
   return `${import.meta.env.VITE_IMAGE_URL}/storage/${url}`;
 };
