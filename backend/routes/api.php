@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CompanyInfoController;
+
+// ================= USERS =================
 
 Route::prefix('users')->group(function () {
 
@@ -13,3 +17,11 @@ Route::prefix('users')->group(function () {
 });
 
 Route::post('/login', [UserController::class, 'login']);
+
+
+// ================= COMPANY INFO =================
+
+Route::apiResource(
+    'company-info',
+    CompanyInfoController::class
+);

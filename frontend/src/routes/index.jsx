@@ -10,6 +10,7 @@ import AdminLayout from "../layouts/AdminLayout";
 // ADMIN MIS
 import AdminDashboard from "../pages/dashboards/AdminDashboard";
 import UsersList from "../pages/users/UsersList"
+import CompanyInfo from "../pages/company/CompanyInfo";
 
 export default function AppRoutes() {
   return (
@@ -31,6 +32,17 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+            <Route
+        path="/admin/company/company-info"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <CompanyInfo />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
          <Route
         path="/admin/users/users-list"
         element={
