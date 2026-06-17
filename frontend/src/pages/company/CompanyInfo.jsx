@@ -86,7 +86,7 @@ export default function CompanyInfo() {
         }
       });
 
-      if (data.logoFile) {
+      if (data.logoFile instanceof File) {
         formData.append("company_logo_url", data.logoFile);
       }
 
