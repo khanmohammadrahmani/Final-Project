@@ -1,7 +1,21 @@
-import { useState } from "react";
-import "./App.css";
+import { useEffect } from "react";
+import RouteIndex from "./routes/index";
+// import UpdateNotifier from "./components/PWA/UpdateNotifier";
 
 function App() {
-  return <h1 className="text-4xl font-bold text-red-400">Tailwind Working</h1>;
+  // useEffect(() => {
+  //   // Ask notification permission once
+  //   if ("Notification" in window && Notification.permission === "default") {
+  //     Notification.requestPermission();
+  //   }
+  // }, []);
+
+  return (
+    <>
+      <RouteIndex />
+      {/* <UpdateNotifier /> */}
+    </>
+  );
 }
+
 export default App;
