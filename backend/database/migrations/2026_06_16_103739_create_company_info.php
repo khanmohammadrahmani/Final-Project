@@ -8,19 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('company_documents', function (Blueprint $table) {
-            $table->id('document_id');
+        Schema::create('company_info', function (Blueprint $table) {
+            $table->id('company_id');
 
-            // وروسته به FK شي
-            $table->unsignedBigInteger('company_id');
+            $table->string('company_name', 255);
+            $table->string('license_number', 100)->nullable();
+            $table->date('license_expire_date')->nullable();
 
-            $table->string('doc_name', 255);
+            $table->string('company_phone', 30)->nullable();
+            $table->string('company_email', 255)->nullable();
+            $table->text('company_address')->nullable();
 
-            $table->text('doc_description')->nullable();
-
-            $table->string('doc_file_url');
-
-            $table->boolean('is_deleted')->default(false);
+            $table->string('company_logo_url', 500)->nullable();
 
             $table->timestamps();
         });
@@ -28,6 +27,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('company_documents');
+        Schema::dropIfExists('company_info');
     }
 };

@@ -11,7 +11,10 @@ return new class extends Migration
         Schema::create('company_documents', function (Blueprint $table) {
             $table->id('document_id');
 
-            $table->unsignedBigInteger('company_id');
+            $table->foreignId('company_id')
+                ->constrained('company_info', 'company_id')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             $table->string('doc_name', 255);
             $table->text('doc_description')->nullable();
@@ -20,12 +23,6 @@ return new class extends Migration
             $table->boolean('is_deleted')->default(false);
 
             $table->timestamps();
-
-            $table->foreign('company_id')
-                ->references('company_id')
-                ->on('company_info')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
         });
     }
 
