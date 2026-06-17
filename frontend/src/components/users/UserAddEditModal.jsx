@@ -48,7 +48,7 @@ export default function UserAddEditModal({ onClose, onRefresh, editData }) {
       setFileName(file?.name || "");
 
       // 🔥 DEBUG FILE
-      console.log("Selected file:", file);
+      // console.log("Selected file:", file);
     } else if (name === "is_active") {
       setForm((p) => ({ ...p, is_active: value === "true" }));
     } else {
@@ -58,9 +58,9 @@ export default function UserAddEditModal({ onClose, onRefresh, editData }) {
 
   // ================= DEBUG FORM =================
   const debugFormData = (formData) => {
-    console.log("===== FORM DATA =====");
+    // console.log("===== FORM DATA =====");
     for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
+      // console.log(pair[0], pair[1]);
     }
   };
 

@@ -14,12 +14,16 @@ class UserService {
   }
 
   update(id, data) {
-    data.append("_method", "PUT");   // 🔥 IMPORTANT FIX
+    data.append("_method", "PUT");
     return API.post(`/users/${id}`, data);
   }
 
   delete(id) {
     return API.delete(`/users/${id}`);
+  }
+
+  login(data) {
+    return API.post("/login", data);
   }
 }
 
