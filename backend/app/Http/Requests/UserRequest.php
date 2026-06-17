@@ -15,36 +15,29 @@ class UserRequest extends FormRequest
         $userId = $this->route('user');
 
         return [
-            'customer_id'      => ['nullable', 'integer'],
-            'employee_id'      => ['nullable', 'integer'],
+            'customer_id'    => ['nullable', 'integer'],
+            'employee_id'    => ['nullable', 'integer'],
 
-            'user_name'        => ['required', 'string', 'max:150'],
+            'user_name'      => ['required', 'string', 'max:150'],
 
-            // IMPORTANT: matches DB column user_email
-            'user_email'       => [
+            'user_email'     => [
                 'required',
                 'email',
                 'max:150',
                 'unique:users,user_email,' . $userId . ',user_id',
             ],
 
-            // password stored as password_hash in DB
-            'password_hash'    => [
+            'password_hash'  => [
                 $this->isMethod('post') ? 'required' : 'nullable',
                 'string',
                 'min:6',
             ],
 
-            'failed_attempts'  => ['nullable', 'integer', 'min:0'],
+            'user_role'      => ['required', 'string', 'max:50'],
 
-            'time_range_start' => ['nullable', 'date'],
-            'time_range_end'   => ['nullable', 'date'],
+            'is_active'      => ['nullable', 'boolean'],
 
-            'user_role'        => ['required', 'string', 'max:50'],
-
-            'is_active'        => ['nullable', 'boolean'],
-
-            'user_photo_url'   => ['nullable', 'string', 'max:500'],
+            'user_photo_url' => ['nullable', 'string', 'max:500'],
         ];
     }
 }
