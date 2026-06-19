@@ -9,16 +9,16 @@ import AdminLayout from "../layouts/AdminLayout";
 
 // ADMIN MIS
 import AdminDashboard from "../pages/dashboards/AdminDashboard";
-import UsersList from "../pages/users/UsersList"
+import UsersList from "../pages/users/UsersList";
 import CompanyInfo from "../pages/company/CompanyInfo";
 import CompanyDocuments from "../pages/company/CompanyDocuments";
 import EmployeePage from "../pages/employee/EmployeePage";
 import EmpDocumentPage from "../pages/employee/EmpDocumentPage";
 import EmployeeHiringPage from "../pages/employee/EmployeeHiringPage";
-import EmployeeSalaryPage from './../pages/employee/EmployeeSalaryPage';
-
-
-
+import EmployeeSalaryPage from "../pages/employee/EmployeeSalaryPage";
+import EnployeeSalaryPayment from "../pages/employee/SalaryPaymentPage";
+import EmployeeWorkExperiencePage from "../pages/employee/EmployeeWorkExperiencePage";
+import CustomerPage from "../pages/customer/CustomerPage";
 
 export default function AppRoutes() {
   return (
@@ -40,7 +40,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-            <Route
+      <Route
         path="/admin/company/company-info"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
@@ -50,7 +50,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-  <Route
+      <Route
         path="/admin/company/docments"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
@@ -60,7 +60,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-        <Route
+      <Route
         path="/admin/employee/employee-list"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
@@ -70,7 +70,17 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-         <Route
+        <Route
+        path="/admin/customer/customer"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <CustomerPage/>
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/admin/employee/employee-documents"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
@@ -81,7 +91,7 @@ export default function AppRoutes() {
         }
       />
 
-         <Route
+      <Route
         path="/admin/employee/employee-hiring"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
@@ -91,7 +101,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-           <Route
+      <Route
         path="/admin/employee/employee-salary"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
@@ -101,7 +111,28 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-         <Route
+      <Route
+        path="/admin/employee/employee-salary-payment"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <EnployeeSalaryPayment />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+        <Route
+        path="/admin/employee/employee-salary-workExperience"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <EmployeeWorkExperiencePage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
         path="/admin/users/users-list"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>

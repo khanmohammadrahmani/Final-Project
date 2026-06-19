@@ -1,14 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\CompanyInfoController;
 use App\Http\Controllers\Api\CompanyDocumentsController;
-use App\Http\Controllers\Api\EmployeeInfoController;
+use App\Http\Controllers\Api\CompanyInfoController;
+use App\Http\Controllers\Api\CustomerInfoController;
 use App\Http\Controllers\Api\EmpDocumentController;
 use App\Http\Controllers\Api\EmployeeHiringInfoController;
+use App\Http\Controllers\Api\EmployeeInfoController;
 use App\Http\Controllers\Api\EmployeeSalaryInfoController;
+use App\Http\Controllers\Api\EmpSalaryPaymentInfoController;
+use App\Http\Controllers\Api\UserController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\EmpWorkExperienceInfoController;
+
+
+
+
+
+
 
 // ================= USERS =================
 
@@ -66,3 +74,23 @@ Route::apiResource(
     'employee-salaries',
     EmployeeSalaryInfoController::class
 );
+
+// ================= EMPLOYEE SALARY PAYMENTS =================
+
+Route::apiResource(
+    'emp-salary-payments',
+    EmpSalaryPaymentInfoController::class
+);
+
+// ================= CUSTOMER INFO =================
+
+Route::apiResource(
+    'customers',
+    CustomerInfoController::class
+);
+
+Route::apiResource(
+    'emp-work-experience',
+    EmpWorkExperienceInfoController::class
+);
+Route::apiResource('customers', CustomerInfoController::class);

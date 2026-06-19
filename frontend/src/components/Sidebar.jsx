@@ -133,7 +133,21 @@ export default function Sidebar({ role }) {
           { name: "Employee Hiring", path: "/admin/employee/employee-hiring" },
 
           { name: "Employee Salary", path: "/admin/employee/employee-salary" },
+          {
+            name: "Employee Salary Payment",
+            path: "/admin/employee/employee-salary-payment",
+          },
+          {
+            name: "Employee WorkExperience",
+            path: "/admin/employee/employee-salary-workExperience",
+          },
         ],
+      },
+
+      {
+        name: "customer",
+        icon: <FiSettings className="animate-spin" />,
+        submenu: [{ name: "Customer", path: "/admin/customer/customer" }],
       },
       // ----------------------------------------------------------------------------------------------
       {
