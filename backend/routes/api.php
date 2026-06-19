@@ -1,30 +1,23 @@
 <?php
 
-use App\Http\Controllers\Api\CompanyDocumentsController;
-use App\Http\Controllers\Api\CompanyInfoController;
-use App\Http\Controllers\Api\EmpDocumentController;
-use App\Http\Controllers\Api\EmployeeHiringInfoController;
-use App\Http\Controllers\Api\EmployeeInfoController;
-use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::apiResource(
-    'emp-documents',
-    EmpDocumentController::class
-);
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CompanyInfoController;
+use App\Http\Controllers\Api\CompanyDocumentsController;
+use App\Http\Controllers\Api\EmployeeInfoController;
+use App\Http\Controllers\Api\EmpDocumentController;
+use App\Http\Controllers\Api\EmployeeHiringInfoController;
+use App\Http\Controllers\Api\EmployeeSalaryInfoController;
 
 // ================= USERS =================
 
 Route::prefix('users')->group(function () {
 
     Route::get('/', [UserController::class, 'index']);
-
     Route::get('/{user}', [UserController::class, 'show']);
-
     Route::post('/', [UserController::class, 'store']);
-
     Route::put('/{user}', [UserController::class, 'update']);
-
     Route::delete('/{user}', [UserController::class, 'destroy']);
 });
 
@@ -45,9 +38,31 @@ Route::apiResource(
     'company-documents',
     CompanyDocumentsController::class
 );
-Route::apiResource('employees', EmployeeInfoController::class);
-Route::apiResource('emp-documents', EmpDocumentController::class);
 
-// EMPLOYEE HIRING
-Route::apiResource('employee-hiring-info', EmployeeHiringInfoController::class);
+// ================= EMPLOYEES =================
 
+Route::apiResource(
+    'employees',
+    EmployeeInfoController::class
+);
+
+// ================= EMPLOYEE DOCUMENTS =================
+
+Route::apiResource(
+    'emp-documents',
+    EmpDocumentController::class
+);
+
+// ================= EMPLOYEE HIRING =================
+
+Route::apiResource(
+    'employee-hiring-info',
+    EmployeeHiringInfoController::class
+);
+
+// ================= EMPLOYEE SALARY =================
+
+Route::apiResource(
+    'employee-salaries',
+    EmployeeSalaryInfoController::class
+);

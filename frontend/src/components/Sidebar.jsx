@@ -82,7 +82,7 @@ export default function Sidebar({ role }) {
   const getAvatar = () => {
     if (!user?.user_photo_url) return defaultAvatar;
     if (user.user_photo_url.startsWith("http")) return user.user_photo_url;
- return `${BASE_URL}/storage/${user.user_photo_url}`;
+    return `${BASE_URL}/storage/${user.user_photo_url}`;
   };
 
   const isActive = (path) => location.pathname === path;
@@ -119,24 +119,27 @@ export default function Sidebar({ role }) {
           },
         ],
       },
-  // ----------------------------------------------------------------------------------------------
+      // ----------------------------------------------------------------------------------------------
       {
         name: "Employee",
         icon: <FiSettings className="animate-spin" />,
         submenu: [
-          { name: "Employee", path: "/admin/employee/employee-list" },  
-           { name: "EmployeeDocument", path: "/admin/employee/employee-documents" },    
-           
-           { name: "Employee Hiring", path: "/admin/employee/employee-hiring" },         
+          { name: "Employee", path: "/admin/employee/employee-list" },
+          {
+            name: "EmployeeDocument",
+            path: "/admin/employee/employee-documents",
+          },
+
+          { name: "Employee Hiring", path: "/admin/employee/employee-hiring" },
+
+          { name: "Employee Salary", path: "/admin/employee/employee-salary" },
         ],
       },
       // ----------------------------------------------------------------------------------------------
       {
         name: "system",
         icon: <FiSettings className="animate-spin" />,
-        submenu: [
-          { name: "user_accounts", path: "/admin/users/users-list" },          
-        ],             
+        submenu: [{ name: "user_accounts", path: "/admin/users/users-list" }],
       },
     ],
 
