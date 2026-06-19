@@ -11,7 +11,8 @@ class EmpDocumentController extends Controller
 {
     public function __construct(
         private EmpDocumentService $service
-    ) {}
+    ) {
+    }
 
     public function index(): JsonResponse
     {
@@ -20,8 +21,9 @@ class EmpDocumentController extends Controller
         );
     }
 
-    public function show(int $document): JsonResponse
-    {
+    public function show(
+        int $document
+    ): JsonResponse {
         return response()->json(
             $this->service->getById($document)
         );
@@ -30,16 +32,20 @@ class EmpDocumentController extends Controller
     public function store(
         EmpDocumentRequest $request
     ): JsonResponse {
+
         $data = $request->validated();
 
         if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file');
+            $data['file'] =
+                $request->file('file');
         }
 
-        $document = $this->service->create($data);
+        $document =
+            $this->service->create($data);
 
         return response()->json([
-            'message' => 'Document created successfully',
+            'message' =>
+                'Document created successfully',
             'data' => $document,
         ], 201);
     }
@@ -48,19 +54,23 @@ class EmpDocumentController extends Controller
         EmpDocumentRequest $request,
         int $document
     ): JsonResponse {
+
         $data = $request->validated();
 
         if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file');
+            $data['file'] =
+                $request->file('file');
         }
 
-        $document = $this->service->update(
-            $document,
-            $data
-        );
+        $document =
+            $this->service->update(
+                $document,
+                $data
+            );
 
         return response()->json([
-            'message' => 'Document updated successfully',
+            'message' =>
+                'Document updated successfully',
             'data' => $document,
         ]);
     }
@@ -68,10 +78,14 @@ class EmpDocumentController extends Controller
     public function destroy(
         int $document
     ): JsonResponse {
-        $this->service->delete($document);
+
+        $this->service->delete(
+            $document
+        );
 
         return response()->json([
-            'message' => 'Document deleted successfully',
+            'message' =>
+                'Document deleted successfully',
         ]);
     }
 }

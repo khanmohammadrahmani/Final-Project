@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\EmpDocument;
+use App\Models\EmployeeDocuments;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,15 +10,15 @@ class EmpDocumentService
 {
     public function getAll()
     {
-        return EmpDocument::with('employee')
+        return EmployeeDocuments::with('employeeInfo')
             ->where('is_deleted', false)
             ->latest('document_id')
             ->get();
     }
 
-    public function getById($id)
+    public function getById(int $id)
     {
-        return EmpDocument::with('employee')
+        return EmployeeDocuments::with('employeeInfo')
             ->findOrFail($id);
     }
 
@@ -34,17 +34,20 @@ class EmpDocumentService
             unset($data['file']);
         }
 
-        return EmpDocument::create($data);
+        return EmployeeDocuments::create($data);
     }
 
-    public function update($id, array $data)
-    {
-        $document = EmpDocument::findOrFail($id);
+    public function update(
+        int $id,
+        array $data
+    ) {
+        $document = EmployeeDocuments::findOrFail($id);
 
         if (
             isset($data['file']) &&
             $data['file'] instanceof UploadedFile
         ) {
+
             if (
                 $document->doc_file_url &&
                 Storage::disk('public')->exists(
@@ -67,9 +70,9 @@ class EmpDocumentService
         return $document->fresh();
     }
 
-    public function delete($id)
+    public function delete(int $id): bool
     {
-        $document = EmpDocument::findOrFail($id);
+        $document = EmployeeDocuments::findOrFail($id);
 
         $document->update([
             'is_deleted' => true,
