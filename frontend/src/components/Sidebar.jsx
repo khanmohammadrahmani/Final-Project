@@ -115,18 +115,26 @@ export default function Sidebar({ role }) {
           },
           {
             name: "company_documents",
-            path: "/admin/company/company-documents",
+            path: "/admin/company/docments",
           },
         ],
       },
-
+  // ----------------------------------------------------------------------------------------------
+      {
+        name: "Employee",
+        icon: <FiSettings className="animate-spin" />,
+        submenu: [
+          { name: "Employee", path: "/admin/employee/EmployeePage" },  
+           { name: "EmployeeDocument", path: "/admin/employee/EmpDocumentPage" },         
+        ],
+      },
       // ----------------------------------------------------------------------------------------------
       {
         name: "system",
         icon: <FiSettings className="animate-spin" />,
         submenu: [
           { name: "user_accounts", path: "/admin/users/users-list" },          
-        ],
+        ],             
       },
     ],
 
