@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -29,21 +30,10 @@ class EmployeeWorkExperienceInfo extends Model
     protected $casts = [
         'experience_id' => 'integer',
         'employee_id'   => 'integer',
-
         'start_date'    => 'date',
         'end_date'      => 'date',
-
         'is_deleted'    => 'boolean',
-
-        'created_at'    => 'datetime',
-        'updated_at'    => 'datetime',
     ];
-
-    /*
-    |--------------------------------------------------------------------------
-    | Relationships
-    |--------------------------------------------------------------------------
-    */
 
     public function employeeInfo(): BelongsTo
     {
