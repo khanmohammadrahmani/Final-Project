@@ -1,19 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\CompanyInfoController;
 use App\Http\Controllers\Api\CompanyDocumentsController;
-use App\Http\Controllers\Api\EmployeeInfoController;
+use App\Http\Controllers\Api\CompanyInfoController;
 use App\Http\Controllers\Api\EmpDocumentController;
+use App\Http\Controllers\Api\EmployeeHiringInfoController;
+use App\Http\Controllers\Api\EmployeeInfoController;
+use App\Http\Controllers\Api\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::apiResource(
     'emp-documents',
     EmpDocumentController::class
 );
-
-
 
 // ================= USERS =================
 
@@ -48,4 +46,8 @@ Route::apiResource(
     CompanyDocumentsController::class
 );
 Route::apiResource('employees', EmployeeInfoController::class);
-Route::apiResource( 'emp-documents', EmpDocumentController::class);
+Route::apiResource('emp-documents', EmpDocumentController::class);
+
+// EMPLOYEE HIRING
+Route::apiResource('employee-hiring-info', EmployeeHiringInfoController::class);
+

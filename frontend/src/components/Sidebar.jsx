@@ -124,8 +124,10 @@ export default function Sidebar({ role }) {
         name: "Employee",
         icon: <FiSettings className="animate-spin" />,
         submenu: [
-          { name: "Employee", path: "/admin/employee/EmployeePage" },  
-           { name: "EmployeeDocument", path: "/admin/employee/EmpDocumentPage" },         
+          { name: "Employee", path: "/admin/employee/employee-list" },  
+           { name: "EmployeeDocument", path: "/admin/employee/employee-documents" },    
+           
+           { name: "Employee Hiring", path: "/admin/employee/employee-hiring" },         
         ],
       },
       // ----------------------------------------------------------------------------------------------
