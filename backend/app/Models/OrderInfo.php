@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderInfo extends Model
 {
-    protected $table = 'orders_info';
-
+    protected $table      = 'orders_info';
     protected $primaryKey = 'order_id';
 
     public $timestamps = true;
@@ -26,23 +25,12 @@ class OrderInfo extends Model
         'order_id'     => 'integer',
         'supplier_id'  => 'integer',
         'customer_id'  => 'integer',
-
         'order_date'   => 'date',
-
         'total_amount' => 'decimal:2',
-
         'is_deleted'   => 'boolean',
-
-        'created_at'   => 'datetime',
-        'updated_at'   => 'datetime',
     ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | Relationships
-    |--------------------------------------------------------------------------
-    */
-
+    // ✅ FIXED RELATIONS (IMPORTANT)
     public function supplierInfo(): BelongsTo
     {
         return $this->belongsTo(

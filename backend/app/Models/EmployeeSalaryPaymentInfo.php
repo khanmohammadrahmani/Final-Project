@@ -1,59 +1,42 @@
 <?php
 namespace App\Models;
 
+use App\Models\InvoiceInfo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+// ✅ MUST HAVE
 
-class EmployeeSalaryPaymentInfo extends Model
+class PaymentInfo extends Model
 {
-    protected $table = 'emp_salary_payment_info';
+    protected $table = 'payments_info';
 
     protected $primaryKey = 'payment_id';
 
-    public $timestamps = true;
-
     protected $fillable = [
-        'employee_salary_id',
-        'salary_month',
-        'salary_bonus',
-        'salary_deduction',
-        'gross_salary',
-        'paid_amount',
+        'invoice_id',
+        'payment_amount',
         'payment_date',
+        'payment_method',
         'payment_status',
         'is_deleted',
     ];
 
     protected $casts = [
-        'payment_id'         => 'integer',
-        'employee_salary_id' => 'integer',
-
-        'salary_bonus'       => 'decimal:2',
-        'salary_deduction'   => 'decimal:2',
-        'gross_salary'       => 'decimal:2',
-        'paid_amount'        => 'decimal:2',
-
-        'payment_date'       => 'date',
-
-        'is_deleted'         => 'boolean',
-
-        'created_at'         => 'datetime',
-        'updated_at'         => 'datetime',
+        'payment_id'     => 'integer',
+        'invoice_id'     => 'integer',
+        'payment_amount' => 'decimal:2',
+        'payment_date'   => 'date',
+        'is_deleted'     => 'boolean',
+        'created_at'     => 'datetime',
+        'updated_at'     => 'datetime',
     ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | Relationships
-    |--------------------------------------------------------------------------
-    */
-
-    public function employeeSalaryInfo(): BelongsTo
+    public function invoice(): BelongsTo
     {
         return $this->belongsTo(
-            EmployeeSalaryInfo::class,
-            'employee_salary_id',
-            'employee_salary_id'
+            InvoiceInfo::class,
+            'invoice_id',
+            'invoice_id'
         );
     }
-    
 }

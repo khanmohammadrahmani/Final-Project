@@ -149,6 +149,70 @@ export default function Sidebar({ role }) {
         icon: <FiSettings className="animate-spin" />,
         submenu: [{ name: "Customer", path: "/admin/customer/customer" }],
       },
+      {
+        name: "supplier",
+        icon: <FiHome className="animate-bounce" />,
+        submenu: [
+          {
+            name: "supplier",
+            path: "/admin/supplier/supplierpage",
+          },
+          {
+            name: "materiles",
+            path: "/admin/materiales/materialpage",
+          },
+          {
+            name: "Orders",
+            path: "/admin/order/orderpage",
+          },
+          {
+            name: "Orders Itemes",
+            path: "/admin/order/orderitemespage",
+          },
+        ],
+      },
+      {
+        name: "StockTransaction",
+        icon: <FiHome className="animate-bounce" />,
+        submenu: [
+          {
+            name: "StockTransaction",
+            path: "/admin/stock/StockTransactionpage",
+          },
+        ],
+      },
+      {
+        name: "financiale",
+        icon: <FiHome className="animate-bounce" />,
+        submenu: [
+          {
+            name: "Expenses",
+            path: "/admin/expenses/expensespage",
+          },
+          {
+            name: "Invoices",
+            path: "/admin/invoices/invoicespage",
+          },
+          {
+            name: "Payment",
+            path: "/admin/payment/paymentpage",
+          },
+          {
+            name: "cashtransaction",
+            path: "/admin/payment/cashtransactions",
+          },
+        ],
+      },
+      {
+        name: "Equepments",
+        icon: <FiHome className="animate-bounce" />,
+        submenu: [
+          {
+            name: "Equepments",
+            path: "/admin/equepment/equepmentpage",
+          },
+        ],
+      },
       // ----------------------------------------------------------------------------------------------
       {
         name: "system",

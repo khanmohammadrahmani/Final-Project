@@ -6,11 +6,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItemInfo extends Model
 {
-    protected $table = 'order_items_info';
-
+    protected $table      = 'order_items_info';
     protected $primaryKey = 'order_item_id';
-
-    public $timestamps = true;
 
     protected $fillable = [
         'order_id',
@@ -24,21 +21,12 @@ class OrderItemInfo extends Model
         'order_item_id'         => 'integer',
         'order_id'              => 'integer',
         'material_id'           => 'integer',
-
         'order_item_quantity'   => 'decimal:2',
         'order_item_unit_price' => 'decimal:2',
-
         'is_deleted'            => 'boolean',
-
-        'created_at'            => 'datetime',
-        'updated_at'            => 'datetime',
     ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | Relationships
-    |--------------------------------------------------------------------------
-    */
+    /* ---------------- RELATIONS FIX ---------------- */
 
     public function orderInfo(): BelongsTo
     {

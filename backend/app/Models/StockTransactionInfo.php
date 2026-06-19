@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -22,17 +21,17 @@ class StockTransactionInfo extends Model
     ];
 
     protected $casts = [
-        'stock_transaction_id' => 'integer',
-        'material_id' => 'integer',
+        'stock_transaction_id'   => 'integer',
+        'material_id'            => 'integer',
 
-        'quantity' => 'decimal:2',
+        'quantity'               => 'decimal:2',
 
         'stock_transaction_date' => 'date',
 
-        'is_deleted' => 'boolean',
+        'is_deleted'             => 'boolean',
 
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at'             => 'datetime',
+        'updated_at'             => 'datetime',
     ];
 
     /*

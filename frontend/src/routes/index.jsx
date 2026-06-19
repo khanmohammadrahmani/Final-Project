@@ -19,6 +19,16 @@ import EmployeeSalaryPage from "../pages/employee/EmployeeSalaryPage";
 import EnployeeSalaryPayment from "../pages/employee/SalaryPaymentPage";
 import EmployeeWorkExperiencePage from "../pages/employee/EmployeeWorkExperiencePage";
 import CustomerPage from "../pages/customer/CustomerPage";
+import SupplierPage from "../pages/supplier/SupplierPage";
+import MaterialPage from "../pages/materials/MaterialPage";
+import OrderPage from "../pages/orders/OrderPage";
+import OrderItemPage from "../pages/orders/OrderItemPage";
+import StockTransactionPage from "../pages/stock/StockTransactionPage";
+import ExpensePage from "../pages/expenses/ExpensePage";
+import InvoicePage from "../pages/invoices/InvoicePage";
+import PaymentPage from "../pages/payments/PaymentPage";
+import CashTransactionPage from "../pages/payments/CashTransactionPage";
+import EquipmentPage from "../pages/equipment/EquipmentPage";
 
 export default function AppRoutes() {
   return (
@@ -70,12 +80,12 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-        <Route
+      <Route
         path="/admin/customer/customer"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
             <AdminLayout>
-              <CustomerPage/>
+              <CustomerPage />
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -121,7 +131,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-        <Route
+      <Route
         path="/admin/employee/employee-salary-workExperience"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
@@ -131,7 +141,106 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
+      <Route
+        path="/admin/supplier/supplierpage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <SupplierPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/materiales/materialpage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <MaterialPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/order/orderpage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <OrderPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/order/orderitemespage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <OrderItemPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/stock/StockTransactionpage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <StockTransactionPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/expenses/expensespage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <ExpensePage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/invoices/invoicespage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <InvoicePage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/payment/paymentpage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <PaymentPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/payment/cashtransactions"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <CashTransactionPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/equepment/equepmentpage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <EquipmentPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/admin/users/users-list"
         element={

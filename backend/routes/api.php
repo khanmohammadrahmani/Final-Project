@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CashTransactionInfoController;
 use App\Http\Controllers\Api\CompanyDocumentsController;
 use App\Http\Controllers\Api\CompanyInfoController;
 use App\Http\Controllers\Api\CustomerInfoController;
@@ -8,15 +9,18 @@ use App\Http\Controllers\Api\EmployeeHiringInfoController;
 use App\Http\Controllers\Api\EmployeeInfoController;
 use App\Http\Controllers\Api\EmployeeSalaryInfoController;
 use App\Http\Controllers\Api\EmpSalaryPaymentInfoController;
+use App\Http\Controllers\Api\EmpWorkExperienceInfoController;
+use App\Http\Controllers\Api\EquipmentInfoController;
+use App\Http\Controllers\Api\ExpenseInfoController;
+use App\Http\Controllers\Api\InvoiceInfoController;
+use App\Http\Controllers\Api\MaterialInfoController;
+use App\Http\Controllers\Api\OrderInfoController;
+use App\Http\Controllers\Api\OrderItemInfoController;
+use App\Http\Controllers\Api\PaymentInfoController;
+use App\Http\Controllers\Api\StockTransactionInfoController;
+use App\Http\Controllers\Api\SupplierInfoController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\EmpWorkExperienceInfoController;
-
-
-
-
-
-
 
 // ================= USERS =================
 
@@ -94,3 +98,28 @@ Route::apiResource(
     EmpWorkExperienceInfoController::class
 );
 Route::apiResource('customers', CustomerInfoController::class);
+Route::apiResource(
+    'suppliers',
+    SupplierInfoController::class
+);
+// MATERIALS
+
+Route::apiResource(
+    'materials',
+    MaterialInfoController::class
+);
+Route::apiResource(
+    'orders',
+    OrderInfoController::class
+);
+Route::apiResource('order-items', OrderItemInfoController::class);
+Route::apiResource(
+    'stock-transactions',
+    StockTransactionInfoController::class
+);
+Route::apiResource('expenses', ExpenseInfoController::class);
+
+Route::apiResource('invoices', InvoiceInfoController::class);
+Route::apiResource('payments', PaymentInfoController::class);
+Route::apiResource('cash-transactions', CashTransactionInfoController::class);
+Route::apiResource('equipment', EquipmentInfoController::class);
