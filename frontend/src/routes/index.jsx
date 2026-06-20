@@ -29,6 +29,7 @@ import InvoicePage from "../pages/invoices/InvoicePage";
 import PaymentPage from "../pages/payments/PaymentPage";
 import CashTransactionPage from "../pages/payments/CashTransactionPage";
 import EquipmentPage from "../pages/equipment/EquipmentPage";
+import EquipmentMaintenancePage from './../pages/equipment/EquipmentMaintenancePage';
 
 export default function AppRoutes() {
   return (
@@ -237,6 +238,16 @@ export default function AppRoutes() {
           <ProtectedRoute allowedRoles={["Admin"]}>
             <AdminLayout>
               <EquipmentPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+         <Route
+        path="/admin/equepment/equepment-maintenance"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminLayout>
+              <EquipmentMaintenancePage />
             </AdminLayout>
           </ProtectedRoute>
         }

@@ -211,6 +211,10 @@ export default function Sidebar({ role }) {
             name: "Equepments",
             path: "/admin/equepment/equepmentpage",
           },
+           {
+            name: "Equepments Maintenance",
+            path: "/admin/equepment/equepment-maintenance",
+          },
         ],
       },
       // ----------------------------------------------------------------------------------------------

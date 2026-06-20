@@ -21,6 +21,9 @@ use App\Http\Controllers\Api\StockTransactionInfoController;
 use App\Http\Controllers\Api\SupplierInfoController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\EquipmentMaintenanceController;
+
+
 
 // ================= USERS =================
 
@@ -123,3 +126,4 @@ Route::apiResource('invoices', InvoiceInfoController::class);
 Route::apiResource('payments', PaymentInfoController::class);
 Route::apiResource('cash-transactions', CashTransactionInfoController::class);
 Route::apiResource('equipment', EquipmentInfoController::class);
+Route::apiResource('equipment-maintenance', EquipmentMaintenanceController::class);
