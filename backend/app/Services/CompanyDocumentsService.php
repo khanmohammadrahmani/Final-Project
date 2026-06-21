@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class CompanyDocumentsService
 {
-    // ================= GET ALL =================
     public function getAll()
     {
         return CompanyDocuments::where('is_deleted', false)
@@ -16,21 +15,19 @@ class CompanyDocumentsService
             ->get();
     }
 
-    // ================= GET BY ID =================
     public function getById(int $id)
     {
         return CompanyDocuments::findOrFail($id);
     }
 
-    // ================= CREATE =================
     public function create(array $data)
     {
         if (isset($data['file']) && $data['file'] instanceof UploadedFile) {
 
-            $data['doc_file_url'] = $data['file']->store(
-                'company-documents',
-                'public'
-            );
+            $path = $data['file']->store('company-documents', 'public');
+
+            // ✅ IMPORTANT FIX: save with /storage prefix
+            $data['doc_file_url'] = 'storage/' . $path;
 
             unset($data['file']);
         }
@@ -38,31 +35,29 @@ class CompanyDocumentsService
         return CompanyDocuments::create($data);
     }
 
-    // ================= UPDATE (FIXED) =================
     public function update(int $id, array $data)
     {
         $document = CompanyDocuments::findOrFail($id);
 
-        // 🔥 IMPORTANT FIX: only handle file if exists
         if (isset($data['file']) && $data['file'] instanceof UploadedFile) {
 
-            // delete old file safely
             if (
-                !empty($document->doc_file_url) &&
-                Storage::disk('public')->exists($document->doc_file_url)
+                !empty($document->doc_file_url)
             ) {
-                Storage::disk('public')->delete($document->doc_file_url);
+                // remove "storage/" prefix before deleting
+                $oldPath = str_replace('storage/', '', $document->doc_file_url);
+
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
             }
 
-            $data['doc_file_url'] = $data['file']->store(
-                'company-documents',
-                'public'
-            );
+            $path = $data['file']->store('company-documents', 'public');
+            $data['doc_file_url'] = 'storage/' . $path;
 
             unset($data['file']);
         }
 
-        // 🔥 CRITICAL FIX: never overwrite file column with null
         unset($data['file']);
 
         $document->update($data);
@@ -70,7 +65,6 @@ class CompanyDocumentsService
         return $document->fresh();
     }
 
-    // ================= DELETE =================
     public function delete(int $id): bool
     {
         $document = CompanyDocuments::findOrFail($id);

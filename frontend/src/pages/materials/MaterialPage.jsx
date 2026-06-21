@@ -71,7 +71,7 @@ export default function MaterialPage() {
       </div>
 
       <div className="bg-white shadow rounded-lg overflow-hidden">
-        <table className="w-full">
+        <table className="w-full text-center">
           <thead className="bg-gray-100">
             <tr>
               <th className="p-3">ID</th>
@@ -101,13 +101,13 @@ export default function MaterialPage() {
 
                 <td className="p-3">{material.unit_price}</td>
 
-                <td className="p-3 flex gap-2">
+                <td className="p-3 text-center gap-2">
                   <button
                     onClick={() => {
                       setEdit(material);
                       setOpen(true);
                     }}
-                    className="bg-yellow-500 text-white px-3 py-1 rounded"
+                    className="bg-yellow-500 text-white px-3 py-1 rounded m-1 "
                   >
                     Edit
                   </button>

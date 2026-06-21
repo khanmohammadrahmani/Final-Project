@@ -79,7 +79,7 @@ export default function OrderPage() {
       </div>
 
       <div className="bg-white rounded shadow overflow-hidden">
-        <table className="w-full text-gray-900">
+        <table className="w-full text-gray-900 text-center">
           <thead className="bg-gray-100 text-gray-800">
             <tr>
               <th className="p-3">ID</th>
@@ -91,7 +91,7 @@ export default function OrderPage() {
             </tr>
           </thead>
 
-          <tbody className="text-gray-800">
+          <tbody className="text-gray-800 ">
             {orders.length === 0 ? (
               <tr>
                 <td colSpan="6" className="p-4 text-center text-gray-500">
@@ -107,13 +107,13 @@ export default function OrderPage() {
                   <td className="p-3">{item.total_amount}</td>
                   <td className="p-3">{item.order_status}</td>
 
-                  <td className="p-3 flex gap-2">
+                  <td className="p-3 text-center gap-2">
                     <button
                       onClick={() => {
                         setEditData(item);
                         setOpen(true);
                       }}
-                      className="bg-yellow-500 text-white px-3 py-1 rounded"
+                      className="bg-yellow-500 text-white px-3 py-1 rounded m-1"
                     >
                       Edit
                     </button>

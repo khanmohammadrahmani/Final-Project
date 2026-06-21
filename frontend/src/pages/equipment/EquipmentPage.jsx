@@ -97,13 +97,13 @@ export default function EquipmentPage() {
                   <td className="p-3">{item.equip_purchase_price}</td>
                   <td className="p-3">{item.equip_current_status}</td>
 
-                  <td className="p-3 flex gap-2">
+                  <td className="p-3 text-center gap-2">
                     <button
                       onClick={() => {
                         setEditData(item);
                         setOpen(true);
                       }}
-                      className="bg-yellow-500 text-white px-3 py-1 rounded"
+                      className="bg-yellow-500 text-white px-3 py-1 rounded m-1"
                     >
                       Edit
                     </button>

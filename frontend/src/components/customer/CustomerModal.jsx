@@ -21,7 +21,31 @@ export default function CustomerModal({
 
   useEffect(() => {
     if (initialData) {
-      setForm(initialData);
+      setForm({
+        cust_full_name: initialData.cust_full_name || "",
+        cust_father_name: initialData.cust_father_name || "",
+        cust_nid_number: initialData.cust_nid_number || "",
+        cust_dob: initialData.cust_dob || "",
+        cust_gender: initialData.cust_gender || "",
+        cust_phone: initialData.cust_phone || "",
+        cust_email: initialData.cust_email || "",
+        cust_address: initialData.cust_address || "",
+        cust_current_status: initialData.cust_current_status || "active",
+        cust_photo_url: initialData.cust_photo_url || "",
+      });
+    } else {
+      setForm({
+        cust_full_name: "",
+        cust_father_name: "",
+        cust_nid_number: "",
+        cust_dob: "",
+        cust_gender: "",
+        cust_phone: "",
+        cust_email: "",
+        cust_address: "",
+        cust_current_status: "active",
+        cust_photo_url: "",
+      });
     }
   }, [initialData]);
 
@@ -46,80 +70,119 @@ export default function CustomerModal({
           {initialData ? "Edit Customer" : "Add Customer"}
         </h2>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-4">
 
-          <input
-            name="cust_full_name"
-            placeholder="Full Name"
-            value={form.cust_full_name}
-            onChange={handleChange}
-            className="border p-2 rounded"
-            required
-          />
+          {/* FULL NAME */}
+          <div>
+            <label className="text-sm font-medium">Full Name</label>
+            <input
+              name="cust_full_name"
+              value={form.cust_full_name}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              required
+            />
+          </div>
 
-          <input
-            name="cust_father_name"
-            placeholder="Father Name"
-            value={form.cust_father_name}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          />
+          {/* FATHER NAME */}
+          <div>
+            <label className="text-sm font-medium">Father Name</label>
+            <input
+              name="cust_father_name"
+              value={form.cust_father_name}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+            />
+          </div>
 
-          <input
-            name="cust_phone"
-            placeholder="Phone"
-            value={form.cust_phone}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          />
+          {/* NID */}
+          <div>
+            <label className="text-sm font-medium">NID Number</label>
+            <input
+              name="cust_nid_number"
+              value={form.cust_nid_number}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+            />
+          </div>
 
-          <input
-            name="cust_email"
-            placeholder="Email"
-            value={form.cust_email}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          />
+          {/* PHONE */}
+          <div>
+            <label className="text-sm font-medium">Phone</label>
+            <input
+              name="cust_phone"
+              value={form.cust_phone}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+            />
+          </div>
 
-          <input
-            type="date"
-            name="cust_dob"
-            value={form.cust_dob}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          />
+          {/* EMAIL */}
+          <div>
+            <label className="text-sm font-medium">Email</label>
+            <input
+              name="cust_email"
+              value={form.cust_email}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+            />
+          </div>
 
-          <select
-            name="cust_gender"
-            value={form.cust_gender}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          >
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+          {/* DOB */}
+          <div>
+            <label className="text-sm font-medium">Date of Birth</label>
+            <input
+              type="date"
+              name="cust_dob"
+              value={form.cust_dob}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+            />
+          </div>
 
-          <select
-            name="cust_current_status"
-            value={form.cust_current_status}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          >
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
+          {/* GENDER */}
+          <div>
+            <label className="text-sm font-medium">Gender</label>
+            <select
+              name="cust_gender"
+              value={form.cust_gender}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          {/* STATUS */}
+          <div>
+            <label className="text-sm font-medium">Status</label>
+            <select
+              name="cust_current_status"
+              value={form.cust_current_status}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+            >
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
 
         </div>
 
-        <textarea
-          name="cust_address"
-          placeholder="Address"
-          value={form.cust_address}
-          onChange={handleChange}
-          className="border p-2 rounded w-full"
-        />
+        {/* ADDRESS */}
+        <div>
+          <label className="text-sm font-medium">Address</label>
+          <textarea
+            name="cust_address"
+            value={form.cust_address}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          />
+        </div>
 
+        {/* BUTTONS */}
         <div className="flex justify-end gap-2">
           <button
             type="button"
@@ -129,7 +192,10 @@ export default function CustomerModal({
             Cancel
           </button>
 
-          <button className="bg-green-600 text-white px-4 py-2 rounded">
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-4 py-2 rounded"
+          >
             {initialData ? "Update" : "Save"}
           </button>
         </div>

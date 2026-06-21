@@ -11,15 +11,11 @@ import {
 } from "react-icons/fi";
 
 import DocumentModal from "../../components/company/DocumentModal";
-import SearchBar from "../../components/common/SearchBar";
 import Pagination from "../../components/common/Pagination";
-import MobileCard from "../../components/common/MobileCard";
-import CardRow from "../../components/common/CardRow";
-
 import { useTranslation } from "react-i18next";
 
 export default function CompanyDocuments() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [documents, setDocuments] = useState([]);
   const [filteredDocs, setFilteredDocs] = useState([]);
@@ -36,7 +32,8 @@ export default function CompanyDocuments() {
   const [deleteData, setDeleteData] = useState(null);
   const [previewData, setPreviewData] = useState(null);
 
-  const BASE_URL = import.meta.env.VITE_IMAGE_URL;
+  // ✅ FIX: safe base url
+  const BASE_URL = (import.meta.env.VITE_IMAGE_URL || "").replace(/\/$/, "");
 
   // ================= FETCH =================
   const fetchDocs = async () => {
@@ -53,7 +50,7 @@ export default function CompanyDocuments() {
     fetchDocs();
   }, []);
 
-  // ================= FILTER + SORT =================
+  // ================= FILTER =================
   useEffect(() => {
     let data = [...documents];
 
@@ -87,7 +84,7 @@ export default function CompanyDocuments() {
   const start = (page - 1) * limit;
   const paginatedDocs = filteredDocs.slice(start, start + limit);
 
-  // ================= CREATE / UPDATE (FIXED FLOW) =================
+  // ================= CREATE / UPDATE =================
   const handleSubmit = async (formData) => {
     try {
       const payload = new FormData();
@@ -114,7 +111,6 @@ export default function CompanyDocuments() {
       setModalOpen(false);
       setEditData(null);
       fetchDocs();
-
     } catch (err) {
       console.error(err);
     }
@@ -135,37 +131,43 @@ export default function CompanyDocuments() {
     }
   };
 
-  // ================= DOWNLOAD =================
-  const handleDownload = async (doc) => {
+  // ================= FIXED DOWNLOAD (NO CORS ISSUE) =================
+  const handleDownload = (doc) => {
     try {
-      const res = await fetch(`${BASE_URL}${doc.doc_file_url}`);
-      const blob = await res.blob();
+      if (!doc?.doc_file_url) return;
 
-      const url = window.URL.createObjectURL(blob);
+      // IMPORTANT: always use /storage prefix
+      const filePath = doc.doc_file_url.startsWith("storage/")
+        ? doc.doc_file_url
+        : `storage/${doc.doc_file_url}`;
+
+      const url = `${BASE_URL}/${filePath.replace(/^\/+/, "")}`;
+
       const a = document.createElement("a");
-
       a.href = url;
+      a.target = "_blank"; // avoids fetch/CORS issue
       a.download = doc.doc_name || "file";
-      a.click();
 
-      window.URL.revokeObjectURL(url);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     } catch (err) {
-      console.error(err);
+      console.error("Download error:", err);
     }
   };
 
+  // ================= FILE TYPE =================
   const getFileType = (url = "") => {
     const ext = url.split(".").pop().toLowerCase();
-    if (["png", "jpg", "jpeg"].includes(ext)) return "image";
+    if (["png", "jpg", "jpeg", "webp"].includes(ext)) return "image";
     if (ext === "pdf") return "pdf";
     return "other";
   };
 
-  // ================= UI =================
   return (
     <div className="p-4 max-w-7xl mx-auto">
 
-      {/* TOP */}
+      {/* HEADER */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">
           {t("company_documents")}
@@ -184,7 +186,6 @@ export default function CompanyDocuments() {
 
       {/* TABLE */}
       <div className="bg-white shadow rounded-lg overflow-hidden">
-
         <table className="w-full text-sm">
           <thead className="bg-gray-200">
             <tr>
@@ -199,17 +200,11 @@ export default function CompanyDocuments() {
             {paginatedDocs.map((doc) => (
               <tr key={doc.document_id} className="border-t">
 
-                <td className="p-2 text-center">
-                  {doc.document_id}
-                </td>
-
+                <td className="p-2 text-center">{doc.document_id}</td>
                 <td className="p-2">{doc.doc_name}</td>
+                <td className="p-2">{doc.doc_description}</td>
 
-                <td className="p-2">
-                  {doc.doc_description}
-                </td>
-
-                <td className="p-2 flex gap-2 justify-center">
+                <td className="p-2 flex gap-3 justify-center">
 
                   <button onClick={() => setPreviewData(doc)}>
                     <FiEye />
@@ -219,12 +214,10 @@ export default function CompanyDocuments() {
                     <FiDownload />
                   </button>
 
-                  <button
-                    onClick={() => {
-                      setEditData(doc);
-                      setModalOpen(true);
-                    }}
-                  >
+                  <button onClick={() => {
+                    setEditData(doc);
+                    setModalOpen(true);
+                  }}>
                     <FiEdit3 />
                   </button>
 
@@ -233,11 +226,9 @@ export default function CompanyDocuments() {
                   </button>
 
                 </td>
-
               </tr>
             ))}
           </tbody>
-
         </table>
       </div>
 
@@ -254,23 +245,22 @@ export default function CompanyDocuments() {
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
           <div className="bg-white p-4 w-[70%] h-[80%] overflow-auto">
 
-            <div className="flex justify-between">
+            <div className="flex justify-between mb-2">
               <h3>{previewData.doc_name}</h3>
 
-              <FiXCircle
-                onClick={() => setPreviewData(null)}
-              />
+              <FiXCircle onClick={() => setPreviewData(null)} />
             </div>
 
             {getFileType(previewData.doc_file_url) === "image" && (
               <img
-                src={`${BASE_URL}${previewData.doc_file_url}`}
+                src={`${BASE_URL}/storage/${previewData.doc_file_url.replace(/^storage\//, "")}`}
+                className="w-full"
               />
             )}
 
             {getFileType(previewData.doc_file_url) === "pdf" && (
               <iframe
-                src={`${BASE_URL}${previewData.doc_file_url}`}
+                src={`${BASE_URL}/storage/${previewData.doc_file_url.replace(/^storage\//, "")}`}
                 className="w-full h-full"
               />
             )}
@@ -282,20 +272,16 @@ export default function CompanyDocuments() {
       {/* DELETE */}
       {deleteData && (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-
           <div className="bg-white p-4">
             <p>Delete {deleteData.doc_name}?</p>
 
-            <button onClick={() => setDeleteData(null)}>
-              Cancel
-            </button>
-
-            <button onClick={confirmDelete}>
-              Delete
-            </button>
-
+            <div className="flex gap-3 mt-3">
+              <button onClick={() => setDeleteData(null)}>Cancel</button>
+              <button onClick={confirmDelete} className="text-red-600">
+                Delete
+              </button>
+            </div>
           </div>
-
         </div>
       )}
 
@@ -309,7 +295,6 @@ export default function CompanyDocuments() {
         onSubmit={handleSubmit}
         initialData={editData}
       />
-
     </div>
   );
 }

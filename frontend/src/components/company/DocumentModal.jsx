@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiPaperclip } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
+import CompanyInfoService from "../../services/companyInfo.service";
 
 export default function DocumentModal({
   isOpen,
@@ -10,8 +11,10 @@ export default function DocumentModal({
 }) {
   const { t } = useTranslation();
 
+  const [companies, setCompanies] = useState([]);
+
   const [formData, setFormData] = useState({
-    company_id: 1,
+    company_id: "",
     doc_name: "",
     doc_description: "",
     file: null,
@@ -20,18 +23,35 @@ export default function DocumentModal({
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // ================= FETCH COMPANIES =================
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      try {
+        const res = await CompanyInfoService.getAll();
+        setCompanies(res.data || []);
+      } catch (err) {
+        console.error(err);
+        setCompanies([]);
+      }
+    };
+
+    if (isOpen) {
+      fetchCompanies();
+    }
+  }, [isOpen]);
+
   // ================= INIT =================
   useEffect(() => {
     if (initialData) {
       setFormData({
-        company_id: initialData.company_id || 1,
+        company_id: initialData.company_id || "",
         doc_name: initialData.doc_name || "",
         doc_description: initialData.doc_description || "",
         file: null,
       });
     } else {
       setFormData({
-        company_id: 1,
+        company_id: "",
         doc_name: "",
         doc_description: "",
         file: null,
@@ -64,7 +84,7 @@ export default function DocumentModal({
     }));
   };
 
-  // ================= SUBMIT (FIXED) =================
+  // ================= SUBMIT =================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -74,12 +94,9 @@ export default function DocumentModal({
       await onSubmit(formData);
 
       setSuccess(
-        initialData
-          ? t("updated_successfully")
-          : t("saved_successfully")
+        initialData ? t("updated_successfully") : t("saved_successfully")
       );
 
-      // optional reset after success
       setTimeout(() => {
         onClose();
       }, 800);
@@ -94,6 +111,7 @@ export default function DocumentModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 px-2">
+
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-5">
 
         {/* TITLE */}
@@ -118,20 +136,27 @@ export default function DocumentModal({
         {/* FORM */}
         <form onSubmit={handleSubmit} className="grid gap-4">
 
-          {/* COMPANY ID */}
+          {/* COMPANY DROPDOWN */}
           <div>
             <label className="block text-sm mb-1 font-medium">
-              Company ID
+              {t("company")}
             </label>
 
-            <input
-              type="number"
+            <select
               name="company_id"
               value={formData.company_id}
               onChange={handleChange}
               className="border p-2.5 rounded w-full"
               required
-            />
+            >
+              <option value="">{t("select_company")}</option>
+
+              {companies.map((c) => (
+                <option key={c.company_id} value={c.company_id}>
+                  {c.company_name}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* DOC NAME */}
@@ -182,7 +207,7 @@ export default function DocumentModal({
                 type="file"
                 onChange={handleFileChange}
                 className="hidden"
-                accept=".pdf,.doc,.docx,.xlsx,.pptx,.png,.jpg,.jpeg,.zip,.rar"
+                accept=".pdf,.doc,.docx,.xlsx,.pptx,.png,.jpg,.jpeg"
               />
             </label>
           </div>
@@ -193,14 +218,14 @@ export default function DocumentModal({
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded w-full sm:w-auto"
+              className="bg-gray-400 text-white px-4 py-2 rounded w-full sm:w-auto"
             >
               {t("cancel")}
             </button>
 
             <button
               type="submit"
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full sm:w-auto"
+              className="bg-green-600 text-white px-4 py-2 rounded w-full sm:w-auto"
             >
               {initialData ? t("update") : t("save")}
             </button>

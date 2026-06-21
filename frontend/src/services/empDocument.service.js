@@ -10,11 +10,20 @@ class EmpDocumentService {
   }
 
   create(data) {
-    return API.post("/emp-documents", data);
+    return API.post("/emp-documents", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 
+  // 🔥 FIX HERE (IMPORTANT)
   update(id, data) {
-    return API.post(`/emp-documents/${id}`, data);
+    return API.post(`/emp-documents/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 
   delete(id) {

@@ -150,10 +150,11 @@ export default function UsersList() {
             <thead className="bg-gray-200 text-left">
               <tr>
                 <th className="p-2 text-center">ID</th>
+                <th className="p-2 text-center">{t("photo")}</th>
                 <th className="p-2">{t("user_name")}</th>
                 <th className="p-2">{t("email")}</th>
                 <th className="p-2">{t("role")}</th>
-                <th className="p-2 text-center">{t("photo")}</th>
+                
                 <th className="p-2 text-center">{t("actions")}</th>
               </tr>
             </thead>
@@ -163,16 +164,17 @@ export default function UsersList() {
                 paginated.map((u) => (
                   <tr key={u.user_id} className="border-t hover:bg-gray-50">
                     <td className="p-2 text-center">{u.user_id}</td>
-                    <td className="p-2">{u.user_name}</td>
-                    <td className="p-2">{u.user_email}</td>
-                    <td className="p-2">{u.user_role}</td>
-
-                    <td className="p-2 text-center">
+                      <td className="p-2 text-center">
                       <img
                         src={getUserImage(u)}
                         className="w-10 h-10 rounded-full mx-auto border"
                       />
                     </td>
+                    <td className="p-2">{u.user_name}</td>
+                    <td className="p-2">{u.user_email}</td>
+                    <td className="p-2">{u.user_role}</td>
+
+                  
 
                     <td className="p-2">
                       <div className="flex justify-center gap-2">

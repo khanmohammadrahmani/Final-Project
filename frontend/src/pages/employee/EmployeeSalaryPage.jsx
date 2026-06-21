@@ -69,7 +69,7 @@ export default function EmployeeSalaryPage() {
       </div>
 
       <div className="bg-white shadow rounded overflow-hidden">
-        <table className="w-full">
+        <table className="w-full text-center">
           <thead className="bg-gray-100">
             <tr>
               <th className="p-3">ID</th>
@@ -77,7 +77,7 @@ export default function EmployeeSalaryPage() {
               <th className="p-3">Base Salary</th>
               <th className="p-3">Allowance</th>
               <th className="p-3">Status</th>
-              <th className="p-3">Actions</th>
+              <th className="p-3 ">Actions</th>
             </tr>
           </thead>
 
@@ -94,13 +94,13 @@ export default function EmployeeSalaryPage() {
 
                 <td className="p-3">{row.is_active ? "Active" : "Inactive"}</td>
 
-                <td className="p-3 flex gap-2">
+                <td className="p-3 text-center gap-2">
                   <button
                     onClick={() => {
                       setEdit(row);
                       setOpen(true);
                     }}
-                    className="bg-yellow-500 text-white px-3 py-1 rounded"
+                    className="bg-yellow-500 text-white px-3 py-1 m-1  rounded "
                   >
                     Edit
                   </button>

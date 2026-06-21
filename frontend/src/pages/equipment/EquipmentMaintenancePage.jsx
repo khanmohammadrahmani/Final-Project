@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import EquipmentMaintenanceService from "../../services/equipmentMaintenanceService";
+import EquipmentService from "../../services/equipment.service"; // ✅ ADD THIS
+
 import EquipmentMaintenanceModal from "../../components/equipment/EquipmentMaintenanceModal";
 
 export default function EquipmentMaintenancePage() {
   const [items, setItems] = useState([]);
+  const [equipments, setEquipments] = useState([]); // ✅ ADD THIS
+
   const [open, setOpen] = useState(false);
   const [editData, setEditData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -12,8 +16,15 @@ export default function EquipmentMaintenancePage() {
   const loadData = async () => {
     try {
       setLoading(true);
-      const res = await EquipmentMaintenanceService.getAll();
-      setItems(res.data?.data || res.data || []);
+
+      const [maintRes, equipRes] = await Promise.all([
+        EquipmentMaintenanceService.getAll(),
+        EquipmentService.getAll(), // ✅ LOAD EQUIPMENT
+      ]);
+
+      setItems(maintRes.data?.data || maintRes.data || []);
+      setEquipments(equipRes.data?.data || equipRes.data || []);
+
     } catch (error) {
       console.error("Load error:", error);
     } finally {
@@ -55,16 +66,6 @@ export default function EquipmentMaintenancePage() {
     }
   };
 
-  const openCreateModal = () => {
-    setEditData(null);
-    setOpen(true);
-  };
-
-  const openEditModal = (item) => {
-    setEditData(item);
-    setOpen(true);
-  };
-
   return (
     <div className="p-6">
 
@@ -73,7 +74,10 @@ export default function EquipmentMaintenancePage() {
         <h1 className="text-2xl font-bold">Equipment Maintenance</h1>
 
         <button
-          onClick={openCreateModal}
+          onClick={() => {
+            setEditData(null);
+            setOpen(true);
+          }}
           className="bg-green-600 text-white px-4 py-2 rounded"
         >
           Add Maintenance
@@ -86,7 +90,7 @@ export default function EquipmentMaintenancePage() {
           <thead className="bg-gray-100">
             <tr>
               <th className="p-3">ID</th>
-              <th className="p-3">Equipment ID</th>
+              <th className="p-3">Equipment</th>
               <th className="p-3">Cost</th>
               <th className="p-3">Date</th>
               <th className="p-3">Description</th>
@@ -110,17 +114,27 @@ export default function EquipmentMaintenancePage() {
             ) : (
               items.map((item) => (
                 <tr key={item.equip_maintenance_id} className="border-t">
+
                   <td className="p-3">{item.equip_maintenance_id}</td>
-                  <td className="p-3">{item.equipment_id}</td>
+
+                  <td className="p-3">
+                    {item.equipment_id}
+                  </td>
+
                   <td className="p-3">{item.maintenance_cost}</td>
+
                   <td className="p-3">{item.maintenance_date}</td>
+
                   <td className="p-3">
                     {item.maintenance_description}
                   </td>
 
                   <td className="p-3 flex gap-2 justify-center">
                     <button
-                      onClick={() => openEditModal(item)}
+                      onClick={() => {
+                        setEditData(item);
+                        setOpen(true);
+                      }}
                       className="bg-yellow-500 text-white px-3 py-1 rounded"
                     >
                       Edit
@@ -135,6 +149,7 @@ export default function EquipmentMaintenancePage() {
                       Delete
                     </button>
                   </td>
+
                 </tr>
               ))
             )}
@@ -151,6 +166,7 @@ export default function EquipmentMaintenancePage() {
         }}
         onSubmit={handleSubmit}
         initialData={editData}
+        equipments={equipments}   // ✅ IMPORTANT FIX
       />
     </div>
   );

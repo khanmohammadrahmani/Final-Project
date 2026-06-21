@@ -70,7 +70,7 @@ export default function CustomerPage() {
         <p>Loading...</p>
       ) : (
         <div className="bg-white shadow rounded overflow-hidden">
-          <table className="w-full">
+          <table className="w-full text-center">
             <thead className="bg-gray-100">
               <tr>
                 <th className="p-3">ID</th>

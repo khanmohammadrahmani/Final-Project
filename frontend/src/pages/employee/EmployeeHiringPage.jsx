@@ -82,7 +82,7 @@ return ( <div className="p-6 max-w-7xl mx-auto">
   </div>
 
   <div className="bg-white shadow rounded-lg overflow-hidden">
-    <table className="w-full">
+    <table className="w-full text-center">
 
       <thead className="bg-gray-100">
         <tr>

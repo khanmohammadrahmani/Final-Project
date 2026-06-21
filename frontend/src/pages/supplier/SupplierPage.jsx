@@ -93,13 +93,13 @@ export default function SupplierPage() {
 
                 <td className="p-3">{supplier.supplier_address}</td>
 
-                <td className="p-3 flex gap-2">
+                <td className="p-3 text-c gap-2">
                   <button
                     onClick={() => {
                       setEdit(supplier);
                       setOpen(true);
                     }}
-                    className="bg-yellow-500 text-white px-3 py-1 rounded"
+                    className="bg-yellow-500 text-white px-3 py-1 rounded m-1"
                   >
                     Edit
                   </button>

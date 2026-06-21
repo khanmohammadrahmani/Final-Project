@@ -65,7 +65,7 @@ export default function ExpensePage() {
       </div>
 
       <div className="bg-white rounded shadow overflow-hidden">
-        <table className="w-full">
+        <table className="w-full text-center">
           <thead className="bg-gray-100">
             <tr>
               <th className="p-3">ID</th>
@@ -91,13 +91,13 @@ export default function ExpensePage() {
                   <td className="p-3">{item.expense_amount}</td>
                   <td className="p-3">{item.expense_date}</td>
 
-                  <td className="p-3 flex gap-2">
+                  <td className="p-3 text-center gap-2">
                     <button
                       onClick={() => {
                         setEditData(item);
                         setOpen(true);
                       }}
-                      className="bg-yellow-500 text-white px-3 py-1 rounded"
+                      className="bg-yellow-500 text-white px-3 py-1 rounded m-1"
                     >
                       Edit
                     </button>

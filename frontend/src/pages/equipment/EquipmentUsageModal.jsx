@@ -5,6 +5,8 @@ export default function EquipmentUsageModal({
   onClose,
   onSubmit,
   initialData,
+  employees = [],
+  equipments = [],
 }) {
   const [form, setForm] = useState({
     equipment_id: "",
@@ -46,38 +48,57 @@ export default function EquipmentUsageModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-5 rounded-lg w-[600px] space-y-4"
+        className="bg-white text-black p-6 rounded-lg w-[650px] space-y-4 shadow-xl"
       >
+
         <h2 className="text-xl font-bold text-center">
           {initialData ? "Edit Usage" : "Add Usage"}
         </h2>
 
         <div className="grid grid-cols-2 gap-3">
-          <input
+
+          {/* EQUIPMENT */}
+          <select
             name="equipment_id"
             value={form.equipment_id}
             onChange={handleChange}
-            placeholder="Equipment ID"
-            className="border p-2 rounded"
-          />
+            className="w-full border border-gray-300 p-2 rounded bg-white text-black"
+            required
+          >
+            <option value="">Select Equipment</option>
+            {equipments.map((eq) => (
+              <option key={eq.equipment_id} value={eq.equipment_id}>
+                {eq.equip_name}
+              </option>
+            ))}
+          </select>
 
-          <input
+          {/* EMPLOYEE */}
+          <select
             name="employee_id"
             value={form.employee_id}
             onChange={handleChange}
-            placeholder="Employee ID"
-            className="border p-2 rounded"
-          />
+            className="w-full border border-gray-300 p-2 rounded bg-white text-black"
+            required
+          >
+            <option value="">Select Employee</option>
+            {employees.map((emp) => (
+              <option key={emp.employee_id} value={emp.employee_id}>
+                {emp.employee_name}
+              </option>
+            ))}
+          </select>
 
           <input
             type="date"
             name="usage_start_date"
             value={form.usage_start_date}
             onChange={handleChange}
-            className="border p-2 rounded"
+            className="w-full border p-2 rounded bg-white text-black"
           />
 
           <input
@@ -85,7 +106,7 @@ export default function EquipmentUsageModal({
             name="usage_end_date"
             value={form.usage_end_date || ""}
             onChange={handleChange}
-            className="border p-2 rounded"
+            className="w-full border p-2 rounded bg-white text-black"
           />
 
           <textarea
@@ -93,11 +114,13 @@ export default function EquipmentUsageModal({
             value={form.usage_description || ""}
             onChange={handleChange}
             placeholder="Description"
-            className="border p-2 rounded col-span-2"
+            className="w-full border p-2 rounded bg-white text-black col-span-2"
           />
+
         </div>
 
         <div className="flex justify-end gap-2">
+
           <button
             type="button"
             onClick={onClose}
@@ -112,7 +135,9 @@ export default function EquipmentUsageModal({
           >
             {initialData ? "Update" : "Save"}
           </button>
+
         </div>
+
       </form>
     </div>
   );

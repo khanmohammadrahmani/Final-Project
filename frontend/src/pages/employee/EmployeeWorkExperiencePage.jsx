@@ -65,7 +65,7 @@ export default function EmployeeWorkExperiencePage() {
 
       {/* TABLE */}
       <div className="bg-white shadow rounded overflow-hidden">
-        <table className="w-full">
+        <table className="w-full text-center">
           <thead className="bg-gray-100">
             <tr>
               <th className="p-3">ID</th>
@@ -86,13 +86,13 @@ export default function EmployeeWorkExperiencePage() {
                 <td className="p-3">{row.start_date}</td>
                 <td className="p-3">{row.end_date || "-"}</td>
 
-                <td className="p-3 flex gap-2">
+                <td className="p-3 text-center gap-2">
                   <button
                     onClick={() => {
                       setEdit(row);
                       setOpen(true);
                     }}
-                    className="bg-yellow-500 text-white px-3 py-1 rounded"
+                    className="bg-yellow-500 text-white px-3 py-1 rounded m-1"
                   >
                     Edit
                   </button>

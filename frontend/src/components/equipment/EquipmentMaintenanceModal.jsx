@@ -5,6 +5,7 @@ export default function EquipmentMaintenanceModal({
   onClose,
   onSubmit,
   initialData,
+  equipments = [],   // ✅ IMPORTANT ADD THIS
 }) {
   const [form, setForm] = useState({
     equipment_id: "",
@@ -53,13 +54,23 @@ export default function EquipmentMaintenanceModal({
         </h2>
 
         <div className="grid grid-cols-2 gap-3">
-          <input
+
+          {/* ✅ FIXED: INPUT → SELECT */}
+          <select
             name="equipment_id"
             value={form.equipment_id}
             onChange={handleChange}
-            placeholder="Equipment ID"
             className="border p-2 rounded"
-          />
+            required
+          >
+            <option value="">Select Equipment</option>
+
+            {equipments.map((eq) => (
+              <option key={eq.equipment_id} value={eq.equipment_id}>
+                {eq.equip_name}
+              </option>
+            ))}
+          </select>
 
           <input
             type="number"
